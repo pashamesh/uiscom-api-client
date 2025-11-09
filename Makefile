@@ -16,6 +16,10 @@ dependencies:
 test: dependencies
 	${DC} composer test
 
+.PHONY: analyse
+analyse: dependencies
+	${DC} composer analyze
+
 .PHONY: playground play
 playground play:
 	${DC} php /app/tests/playground.php

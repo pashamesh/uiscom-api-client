@@ -62,7 +62,7 @@ final class CallApiClientTest extends TestCase
                 new Response(
                     200,
                     [],
-                    json_encode([
+                    (string) json_encode([
                         'result' => [
                             'data' => [
                                 'access_token' => $expectedNewAccessToken,
@@ -74,7 +74,7 @@ final class CallApiClientTest extends TestCase
                 new Response(
                     200,
                     [],
-                    json_encode(['result' => ['data' => []]])
+                    (string)json_encode(['result' => ['data' => []]])
                 )
             );
 
@@ -90,8 +90,11 @@ final class CallApiClientTest extends TestCase
         );
     }
 
-
-    /** @dataProvider apiCallsProvider */
+    /**
+     * @dataProvider apiCallsProvider
+     *
+     * @param array<string,mixed> $payload
+     */
     public function testCanDoApiCalls(
         string $method,
         string $expectedApiMethod,
@@ -122,18 +125,27 @@ final class CallApiClientTest extends TestCase
 
         $client = new CallApiClient($config, $httpClient);
 
-        $expectedResponse = json_decode($response)->result;
+        /**
+         * @var object{
+         *     result: object{
+         *         data: array<int,object>|object,
+         *         metadata: object,
+         *     }
+         * } $expectedResponse
+         */
+        $expectedResponse = json_decode($response);
 
         $this->assertEquals(
-            $expectedResponse->data,
+            $expectedResponse->result->data,
             $client->{$method}($payload)
         );
         $this->assertEquals(
-            $expectedResponse->metadata,
+            $expectedResponse->result->metadata,
             $client->metadata()
         );
     }
 
+    /** @return array<string,array<int,mixed>> */
     public function apiCallsProvider(): array
     {
         $metadata = [
@@ -158,38 +170,40 @@ final class CallApiClientTest extends TestCase
                 json_encode([
                     'result' => [
                         'data' => [
-                            'call_session_id' => 206597836,
-                            'direction' => 'in',
-                            'start_time' => '2016-10-19T12:26:48.418',
-                            'virtual_phone_number' => '74951045771',
-                            'contact_phone_number' => '74959268686',
-                            'external_id' => null,
-                            'tags' => [
-                                [
-                                    'tag_id' => 456,
-                                    'tag_name' => 'Целевой',
+                            [
+                                'call_session_id' => 206597836,
+                                'direction' => 'in',
+                                'start_time' => '2016-10-19T12:26:48.418',
+                                'virtual_phone_number' => '74951045771',
+                                'contact_phone_number' => '74959268686',
+                                'external_id' => null,
+                                'tags' => [
+                                    [
+                                        'tag_id' => 456,
+                                        'tag_name' => 'Целевой',
+                                    ],
                                 ],
-                            ],
-                            'legs' => [
-                                [
-                                    'leg_id' => 287866245,
-                                    'calling_phone_number' => '74951045771',
-                                    'called_phone_number' => '74959268686...9.2.3.3',
-                                    'is_operator' => false,
-                                    'employee_id' => null,
-                                    'employee_full_name' => null,
-                                    'record_call_enabled' => true,
-                                    'state' => 'Разговор',
-                                ],
-                                [
-                                    'leg_id' => 287866221,
-                                    'calling_phone_number' => '74959268686',
-                                    'called_phone_number' => '79262444393',
-                                    'is_operator' => true,
-                                    'employee_id' => 2345,
-                                    'employee_full_name' => 'Тест',
-                                    'record_call_enabled' => true,
-                                    'state' => 'Разговор',
+                                'legs' => [
+                                    [
+                                        'leg_id' => 287866245,
+                                        'calling_phone_number' => '74951045771',
+                                        'called_phone_number' => '74959268686...9.2.3.3',
+                                        'is_operator' => false,
+                                        'employee_id' => null,
+                                        'employee_full_name' => null,
+                                        'record_call_enabled' => true,
+                                        'state' => 'Разговор',
+                                    ],
+                                    [
+                                        'leg_id' => 287866221,
+                                        'calling_phone_number' => '74959268686',
+                                        'called_phone_number' => '79262444393',
+                                        'is_operator' => true,
+                                        'employee_id' => 2345,
+                                        'employee_full_name' => 'Тест',
+                                        'record_call_enabled' => true,
+                                        'state' => 'Разговор',
+                                    ],
                                 ],
                             ],
                         ],

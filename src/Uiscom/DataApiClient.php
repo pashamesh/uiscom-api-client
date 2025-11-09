@@ -4,13 +4,18 @@ namespace Uiscom;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\TransferException;
-use stdClass;
+use InvalidArgumentException;
 
+/**
+ * @method array<int, array<string, mixed>> getCallsReport(array<string, mixed> $params = [])
+ */
 class DataApiClient
 {
     private string $version = 'v2.0';
     private DataApiConfig $config;
     private Client $client;
+
+    private ?object $metadata = null;
 
     public function __construct(DataApiConfig $config, ?Client $client = null)
     {
@@ -33,13 +38,15 @@ class DataApiClient
      * Get last response metadata
      *
      */
-    public function metadata(): ?stdClass
+    public function metadata(): ?object
     {
         return $this->metadata;
     }
 
     /**
-     * Magic method for API calls
+     * @param array<int,array<string,mixed>> $arguments
+     *
+     * @return array<int,object>|object
      *
      */
     public function __call(string $camelCaseMethod, array $arguments)
@@ -50,7 +57,11 @@ class DataApiClient
             $camelCaseMethod
         );
 
-        $method = strtolower(preg_replace('~_~', '.', $camelCaseMethod, 1));
+        if (! is_string($camelCaseMethod)) {
+            throw new InvalidArgumentException('$camelCaseMethod must be a string');
+        }
+
+        $method = strtolower((string) preg_replace('~_~', '.', $camelCaseMethod, 1));
 
         $params = ['access_token' => $this->config->getAccessToken()];
         if (isset($arguments[0])) {
@@ -61,7 +72,12 @@ class DataApiClient
     }
 
     /**
+     * @param array<string,mixed> $params
+     *
+     * @return array<int,object>|object
+     *
      * @throws \Exception
+     *
      */
     private function doRequest(string $method, array $params)
     {
@@ -75,6 +91,18 @@ class DataApiClient
         try {
             $response = $this->client->post($this->getBaseUri(), ['json' => $payload]);
 
+            /**
+             * @var object{
+             *     result: object{
+             *         data: array<int,object>|object,
+             *         metadata: object,
+             *     },
+             *     error: object{
+             *         code: string,
+             *         message: string,
+             *     }
+             * } $responseBody
+             */
             $responseBody = json_decode($response->getBody()->getContents());
 
             if (isset($responseBody->result)) {

@@ -1,10 +1,10 @@
-name: Tests
+name: Static Analysis
 
 on: [ push ]
 
 jobs:
-  php-test-unit:
-    name: Unit tests
+  phpstan:
+    name: PHPStan
     runs-on: ubuntu-latest
 
     strategy:
@@ -30,6 +30,4 @@ jobs:
           php_version: ${{ matrix.php }}
 
       - name: Run tests
-        run: composer test
-
-
+        run: composer analyse

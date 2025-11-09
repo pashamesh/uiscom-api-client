@@ -8,12 +8,12 @@ use InvalidArgumentException;
 
 final class DataApiConfig
 {
-    private ?string $accessToken;
+    private string $accessToken;
 
     private string $entryPoint;
 
     public function __construct(
-        ?string $accessToken = null,
+        string $accessToken,
         ?string $entryPoint = null
     ) {
         if (empty($accessToken)) {
@@ -26,12 +26,12 @@ final class DataApiConfig
         $this->entryPoint = $entryPoint ?: 'https://dataapi.comagic.ru/';
     }
 
-    public function getAccessToken(): ?string
+    public function getAccessToken(): string
     {
         return $this->accessToken;
     }
 
-    public function getEntryPoint(): ?string
+    public function getEntryPoint(): string
     {
         return $this->entryPoint;
     }

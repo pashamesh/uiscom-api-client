@@ -38,6 +38,7 @@ final class CallApiConfigTest extends TestCase
         new CallApiConfig($login, $password, $accessToken);
     }
 
+    /** @return non-empty-array<string,array> */
     public function validConfigProvider(): array
     {
         return [
@@ -58,6 +59,7 @@ final class CallApiConfigTest extends TestCase
         ];
     }
 
+    /** @return non-empty-array<string,array> */
     public function invalidConfigProvider(): array
     {
         return [

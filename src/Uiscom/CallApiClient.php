@@ -6,8 +6,11 @@ namespace Uiscom;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\TransferException;
-use stdClass;
+use InvalidArgumentException;
 
+/**
+ * @method array<int,array<string,mixed>> listCalls(array<string,mixed> $params = [])
+ */
 class CallApiClient
 {
     private string $version = 'v4.0';
@@ -15,13 +18,9 @@ class CallApiClient
     private ?int $accessTokenExpires = null;
     private ?string $login = null;
     private ?string $password = null;
-    private ?Client $client = null;
+    private Client $client;
 
-    /**
-     * Last response metadata
-     *
-     */
-    private ?stdClass $metadata = null;
+    private ?object $metadata = null;
     private string $baseUri;
 
     public function __construct(CallApiConfig $config, ?Client $client = null)
@@ -55,6 +54,12 @@ class CallApiClient
             return;
         }
 
+        /**
+         * @var object{
+         *     access_token: string,
+         *     expire_at: integer,
+         * } $response
+         */
         $response = $this->doRequest(
             'login.user',
             [
@@ -71,13 +76,15 @@ class CallApiClient
      * Get last response metadata
      *
      */
-    public function metadata(): ?stdClass
+    public function metadata(): ?object
     {
         return $this->metadata;
     }
 
     /**
-     * Magic method for API calls
+     * @param array<int,array<string,mixed>> $arguments
+     *
+     * @return array<int,object>|object
      *
      */
     public function __call(string $camelCaseMethod, array $arguments)
@@ -90,7 +97,11 @@ class CallApiClient
             $camelCaseMethod
         );
 
-        $method = strtolower(preg_replace('~_~', '.', $camelCaseMethod, 1));
+        if (!is_string($camelCaseMethod)) {
+            throw new InvalidArgumentException('$camelCaseMethod must be a string');
+        }
+
+        $method = strtolower((string) preg_replace('~_~', '.', $camelCaseMethod, 1));
 
         $params = ['access_token' => $this->accessToken];
         if (isset($arguments[0])) {
@@ -101,7 +112,12 @@ class CallApiClient
     }
 
     /**
+     * @param array<string,mixed> $params
+     *
+     * @return array<int,object>|object
+     *
      * @throws \Exception
+     *
      */
     private function doRequest(string $method, array $params)
     {
@@ -115,6 +131,18 @@ class CallApiClient
         try {
             $response = $this->client->post($this->baseUri, ['json' => $payload]);
 
+            /**
+             * @var object{
+             *     result: object{
+             *         data: array<int,object>|object,
+             *         metadata: object,
+             *     },
+             *     error: object{
+             *         code: string,
+             *         message: string,
+             *     }
+             * } $responseBody
+             */
             $responseBody = json_decode($response->getBody()->getContents());
 
             if (isset($responseBody->result)) {

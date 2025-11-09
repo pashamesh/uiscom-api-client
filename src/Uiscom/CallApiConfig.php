@@ -53,7 +53,7 @@ final class CallApiConfig
         return $this->accessToken;
     }
 
-    public function getEntryPoint(): ?string
+    public function getEntryPoint(): string
     {
         return $this->entryPoint;
     }

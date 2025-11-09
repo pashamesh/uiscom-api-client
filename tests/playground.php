@@ -7,14 +7,16 @@ use Uiscom\CallApiClient;
 use Uiscom\DataApiClient;
 use Uiscom\DataApiConfig;
 
+$accessToken = 'put_access_token_here';
+
 $callApi = new CallApiClient(
-    new CallApiConfig(null, null, 'put_access_token_here')
+    new CallApiConfig(null, null, $accessToken)
 );
 dump($callApi->listCalls());
 dump($callApi->metadata());
 
 $dataApi = new DataApiClient(
-    new DataApiConfig('put_access_token_here')
+    new DataApiConfig($accessToken)
 );
 dump($dataApi->getCallsReport([
     'date_from' => '2025-10-21 00:00:00',
