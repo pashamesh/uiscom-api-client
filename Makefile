@@ -32,10 +32,6 @@ playground play:
 build:
 	docker compose build
 
-.PHONY: lint
-lint:
-	${DC} composer lint:show
-
-.PHONY: lint-fix
-lint-fix:
-	${DC} composer lint:fix
+.PHONY: format
+format:
+	${DC} composer format

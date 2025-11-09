@@ -41,9 +41,14 @@
         "rector/rector": "^2.2"
     },
     "scripts": {
+        "all": [
+            "@rector",
+            "@format",
+            "@analyse",
+            "@test"
+        ],
         "analyse": "./vendor/bin/phpstan analyse",
-        "lint:fix": "./vendor/bin/php-cs-fixer fix --allow-risky=yes",
-        "lint:show": "@lint:fix --dry-run --diff --verbose",
+        "format": "./vendor/bin/php-cs-fixer fix",
         "rector": "vendor/bin/rector process --dry-run",
         "test": "./vendor/bin/phpunit tests"
     },

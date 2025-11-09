@@ -12,6 +12,7 @@ $finder = Finder::create()
 $config = new Config();
 
 return $config
+    ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
     ->setRules([
         '@PSR12' => true,
         'strict_param' => true,
@@ -31,4 +32,5 @@ return $config
         'php_unit_test_annotation' => true,
         'php_unit_test_case_static_method_calls' => ['call_type' => 'this'],
     ])
-    ->setFinder($finder);
+    ->setFinder($finder)
+    ->setRiskyAllowed(true);
