@@ -16,7 +16,7 @@ final class DataApiConfig
         string $accessToken,
         ?string $entryPoint = null
     ) {
-        if (empty($accessToken)) {
+        if ($accessToken === '') {
             throw new InvalidArgumentException(
                 'Access token is required'
             );

@@ -18,7 +18,11 @@ test: dependencies
 
 .PHONY: analyse
 analyse: dependencies
-	${DC} composer analyze
+	${DC} composer analyse
+
+.PHONY: rector
+rector: dependencies
+	${DC} composer rector
 
 .PHONY: playground play
 playground play:

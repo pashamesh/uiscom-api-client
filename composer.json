@@ -37,13 +37,15 @@
         "phpunit/phpunit": "^9.6",
         "friendsofphp/php-cs-fixer": "^3.89",
         "symfony/var-dumper": "^5.4 || ^6.4 || ^7.3 || ^8.0",
-        "phpstan/phpstan": "^2.1"
+        "phpstan/phpstan": "^2.1",
+        "rector/rector": "^2.2"
     },
     "scripts": {
         "analyse": "./vendor/bin/phpstan analyse",
-        "test": "./vendor/bin/phpunit tests",
         "lint:fix": "./vendor/bin/php-cs-fixer fix --allow-risky=yes",
-        "lint:show": "@lint:fix --dry-run --diff --verbose"
+        "lint:show": "@lint:fix --dry-run --diff --verbose",
+        "rector": "vendor/bin/rector process --dry-run",
+        "test": "./vendor/bin/phpunit tests"
     },
     "config": {
         "platform": {

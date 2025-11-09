@@ -138,7 +138,7 @@ class CallApiClient
              *         metadata: object,
              *     },
              *     error: object{
-             *         code: string,
+             *         code: int,
              *         message: string,
              *     }
              * } $responseBody
@@ -151,13 +151,18 @@ class CallApiClient
 
             if (isset($responseBody->error)) {
                 throw new \Exception(
-                    "{$responseBody->error->code} {$responseBody->error->message}"
+                    $responseBody->error->message,
+                    $responseBody->error->code
                 );
             }
 
             return $responseBody->result->data;
-        } catch (TransferException $e) {
-            throw new \Exception($e->getMessage());
+        } catch (TransferException $transferException) {
+            throw new \Exception(
+                $transferException->getMessage(),
+                $transferException->getCode(),
+                $transferException
+            );
         }
     }
 }
