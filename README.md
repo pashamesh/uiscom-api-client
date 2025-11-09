@@ -1,10 +1,12 @@
-<p align="center">
-    <img src="https://github.com/pashamesh/uiscom-api-client/actions/workflows/code_style.yml/badge.svg" alt="Code style">
-    <img src="https://github.com/pashamesh/uiscom-api-client/actions/workflows/tests.yml/badge.svg" alt="Tests">
-</p>
-
 # [UIScom](https://www.uiscom.ru/) (formerly [CoMagic](https://main.comagic.ru/)) API PHP client
-UIS and CoMagic PHP client for the following APIs:
+
+[![Tests](https://github.com/pashamesh/uiscom-api-client/actions/workflows/tests.yml/badge.svg)](https://github.com/pashamesh/uiscom-api-client/actions/workflows/tests.yml)
+[![Code style](https://github.com/pashamesh/uiscom-api-client/actions/workflows/code_style.yml/badge.svg)](https://github.com/pashamesh/uiscom-api-client/actions/workflows/code_style.yml)
+[<img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">](LICENSE)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/pashamesh/uiscom-api-client.svg?style=flat-square)](https://packagist.org/packages/pashamesh/uiscom-api-client)
+[![Total Downloads](https://img.shields.io/packagist/dt/pashamesh/uiscom-api-client.svg?style=flat-square)](https://packagist.org/packages/pashamesh/uiscom-api-client)
+
+UIS (CoMagic) PHP client for the following APIs:
 - [Call API](https://www.uiscom.ru/academiya/spravochnyj-centr/dokumentatsiya-api/call_api/)
 - [Data API](https://www.uiscom.ru/academiya/spravochnyj-centr/dokumentatsiya-api/data_api/)
 
