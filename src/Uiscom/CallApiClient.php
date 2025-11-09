@@ -10,7 +10,30 @@ use GuzzleHttp\Exception\TransferException;
 use InvalidArgumentException;
 
 /**
- * @method array<int,array<string,mixed>> listCalls(array<string,mixed> $params = [])
+ * @method object loginUser(array<string,mixed> $params = [])
+ * @method object logoutUser(array<string,mixed> $params = [])
+ *
+ * @method object startEmployeeCall(array<string,mixed> $params = [])
+ * @method object startScenarioCall(array<string,mixed> $params = [])
+ * @method object startVnumberCall(array<string,mixed> $params = [])
+ * @method object startInformerCall(array<string,mixed> $params = [])
+ * @method object startSimpleCall(array<string,mixed> $params = [])
+ *
+ * @method object makeCall(array<string,mixed> $params = [])
+ * @method object transferTalk(array<string,mixed> $params = [])
+ * @method object restoreTalk(array<string,mixed> $params = [])
+ * @method object holdCall(array<string,mixed> $params = [])
+ * @method object unholdCall(array<string,mixed> $params = [])
+ * @method object tagCall(array<string,mixed> $params = [])
+ * @method object disconnectLeg(array<string,mixed> $params = [])
+ * @method object addCoach(array<string,mixed> $params = [])
+ * @method object recordCall(array<string,mixed> $params = [])
+ * @method object blockContact(array<string,mixed> $params = [])
+ * @method object callTalkOption(array<string,mixed> $params = [])
+ * @method object sendDtmf(array<string,mixed> $params = [])
+ * @method array<int, object> listTalkOptions(array<string,mixed> $params = [])
+ * @method array<int, object> listCalls(array<string,mixed> $params = [])
+ * @method object releaseCall(array<string,mixed> $params = [])
  */
 class CallApiClient
 {
