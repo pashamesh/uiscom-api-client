@@ -16,9 +16,9 @@ dependencies:
 test: dependencies
 	${DC} composer test
 
-.PHONY: test-legacy
-test-legacy:
-	${DC} php /app/tests/test.php
+.PHONY: playground play
+playground play:
+	${DC} php /app/tests/playground.php
 
 .PHONY: build
 build:

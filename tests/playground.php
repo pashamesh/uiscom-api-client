@@ -10,14 +10,14 @@ use Uiscom\DataApiConfig;
 $callApi = new CallApiClient(
     new CallApiConfig(null, null, 'put_access_token_here')
 );
-var_dump($callApi->listCalls());
-var_dump($callApi->metadata());
+dump($callApi->listCalls());
+dump($callApi->metadata());
 
 $dataApi = new DataApiClient(
     new DataApiConfig('put_access_token_here')
 );
-var_dump($dataApi->getCallsReport([
-    'date_from' => '2025-01-10 00:00:00',
-    'date_till' => '2025-01-13 00:00:00',
+dump($dataApi->getCallsReport([
+    'date_from' => '2025-10-21 00:00:00',
+    'date_till' => '2025-10-22 23:59:59',
 ]));
-var_dump($dataApi->metadata());
+dump($dataApi->metadata());

@@ -35,7 +35,8 @@
     ],
     "require-dev": {
         "phpunit/phpunit": "^9.6",
-        "friendsofphp/php-cs-fixer": "^3.89"
+        "friendsofphp/php-cs-fixer": "^3.89",
+        "symfony/var-dumper": "^5.4 || ^6.4 || ^7.3 || ^8.0"
     },
     "scripts": {
         "test": [
