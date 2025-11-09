@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Uiscom;
 
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\TransferException;
 use InvalidArgumentException;
@@ -116,7 +117,7 @@ class CallApiClient
      *
      * @return array<int,object>|object
      *
-     * @throws \Exception
+     * @throws Exception
      *
      */
     private function doRequest(string $method, array $params)
@@ -150,7 +151,7 @@ class CallApiClient
             }
 
             if (isset($responseBody->error)) {
-                throw new \Exception(
+                throw new Exception(
                     $responseBody->error->message,
                     $responseBody->error->code
                 );
@@ -158,7 +159,7 @@ class CallApiClient
 
             return $responseBody->result->data;
         } catch (TransferException $transferException) {
-            throw new \Exception(
+            throw new Exception(
                 $transferException->getMessage(),
                 $transferException->getCode(),
                 $transferException

@@ -33,7 +33,7 @@ final class CallApiConfigTest extends TestCase
         ?string $password = null,
         ?string $accessToken = null
     ): void {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         new CallApiConfig($login, $password, $accessToken);
     }

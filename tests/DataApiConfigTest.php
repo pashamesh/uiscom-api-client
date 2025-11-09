@@ -22,7 +22,7 @@ final class DataApiConfigTest extends TestCase
 
     public function testThrowsExceptionFromInvalidConfig(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         new DataApiConfig('');
     }

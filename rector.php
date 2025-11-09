@@ -25,4 +25,5 @@ return RectorConfig::configure()
     ->withSkip([
         DisallowedEmptyRuleFixerRector::class,
         NewlineAfterStatementRector::class,
-    ]);
+    ])
+    ->withImportNames();
